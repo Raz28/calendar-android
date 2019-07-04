@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CalendarTheme.TextAppearance">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+    </style>
+
+    <style name="CalendarTheme.TextAppearance.Small">
+        <item name="android:textSize">@dimen/font_small</item>
+    </style>
+
+    <style name="CalendarTheme.TextAppearance.Medium">
+        <item name="android:textSize">@dimen/font_medium</item>
+    </style>
+
+    <style name="CalendarTheme.TextAppearance.Large">
+        <item name="android:textSize">@dimen/font_large</item>
+    </style>
+
+    <style name="CalendarTheme.TextAppearance.Larger">
+        <item name="android:textSize">@dimen/font_larger</item>
+    </style>
+
+    <style name="CalendarTheme.TextAppearance.Largest">
+        <item name="android:textSize">@dimen/font_largest</item>
+    </style>
+
+    <style name="CalendarTheme.TextAppearance.Small.Header">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalendarTheme.TextAppearance.Medium.Header">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalendarTheme.TextAppearance.Large.Header">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalendarTheme.TextAppearance.Larger.Header">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalendarTheme.TextAppearance.Largest.Header">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

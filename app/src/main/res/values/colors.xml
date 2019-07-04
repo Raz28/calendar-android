@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--StyleApp-->
+    <color name="colorPrimary">@color/lightBlue</color>
+    <color name="colorPrimaryDark">@color/blue</color>
+    <color name="colorAccent">@color/gray</color>
+
+    <!--TextColor-->
+    <color name="textColorWhite">@color/white</color>
+    <color name="textColorGray">@color/gray</color>
+    <color name="textColorTurquoise">@color/blue</color>
+    <color name="textColorBlack">@color/black</color>
+    <color name="separatorColor">@color/blackAlpha</color>
+
+    <!--Color-->
+    <color name="white">#fff</color>
+    <color name="darkGray">#242424</color>
+    <color name="blackAlpha">#66000000</color>
+    <color name="gray">#95989a</color>
+    <color name="lightGray">#e9e9e9</color>
+    <color name="lightGrayDarker">#c6c6c6</color>
+    <color name="black">#000000</color>
+    <color name="red">#f4333e</color>
+    <color name="lightRed">#ef4a53</color>
+    <color name="orange">#f47333</color>
+    <color name="green">#5bc728</color>
+    <color name="blue">#336EE4</color>
+    <color name="dimBlue">#6d8bdf</color>
+    <color name="darkBlue">#0026a3</color>
+    <color name="lightBlue">#0193ef</color>
+    <color name="lightPink">#fab4c1</color>
+    <color name="peach">#f7d0bc</color>
+</resources>

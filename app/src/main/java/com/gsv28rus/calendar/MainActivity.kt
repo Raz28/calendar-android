@@ -1,7 +1,7 @@
 package com.gsv28rus.calendar
 
 import android.os.Bundle
-import com.gsv28rus.calendar.repository.UserRepositoryImpl
+import com.gsv28rus.calendar.user.UserRepositoryImpl
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.gsv28rus.calendar.model
+package com.gsv28rus.calendar.user
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

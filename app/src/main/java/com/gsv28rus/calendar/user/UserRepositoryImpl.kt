@@ -1,8 +1,6 @@
-package com.gsv28rus.calendar.repository
+package com.gsv28rus.calendar.user
 
 import com.gsv28rus.calendar.AppDatabase
-import com.gsv28rus.calendar.api.UserApi
-import com.gsv28rus.calendar.model.User
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject

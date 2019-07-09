@@ -19,6 +19,9 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 
@@ -49,7 +52,7 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger_ver"
 
     //room 
-    def room_ver = "2.0.0"
+    def room_ver = "2.1.0"
     implementation "androidx.room:room-runtime:$room_ver"
     implementation "androidx.room:room-rxjava2:$room_ver"
     kapt "androidx.room:room-compiler:$room_ver"
@@ -61,6 +64,9 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_ver"
 
     implementation "io.reactivex.rxjava2:rxkotlin:2.3.0"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
     
     testImplementation "junit:junit:4.12"
     androidTestImplementation "androidx.test:runner:1.2.0"

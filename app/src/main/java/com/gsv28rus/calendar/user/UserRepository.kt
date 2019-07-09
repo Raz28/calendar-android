@@ -1,6 +1,6 @@
-package com.gsv28rus.calendar.repository
+package com.gsv28rus.calendar.user
 
-import com.gsv28rus.calendar.model.User
+import com.gsv28rus.calendar.user.User
 import io.reactivex.Completable
 import io.reactivex.Single
 

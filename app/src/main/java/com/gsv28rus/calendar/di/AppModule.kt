@@ -4,17 +4,23 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.room.Room
-import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.gsv28rus.calendar.AppDatabase
-import com.gsv28rus.calendar.api.UserApi
-import com.gsv28rus.calendar.repository.UserRepository
-import com.gsv28rus.calendar.repository.UserRepositoryImpl
+import com.gsv28rus.calendar.common.schedulers.AppSchedulerProvider
+import com.gsv28rus.calendar.common.schedulers.SchedulerProvider
+import com.gsv28rus.calendar.event.EventApi
+import com.gsv28rus.calendar.event.EventRepository
+import com.gsv28rus.calendar.event.EventRepositoryImpl
+import com.gsv28rus.calendar.user.UserApi
+import com.gsv28rus.calendar.user.UserRepository
+import com.gsv28rus.calendar.user.UserRepositoryImpl
+import com.gsv28rus.calendar.utils.ZoneDateTimeDeserializer
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import org.threeten.bp.ZonedDateTime
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -32,9 +38,6 @@ class AppModule(private val context: Context) {
     }
 
     @Provides
-    fun provideUserApi(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
-
-    @Provides
     fun provideMainExecutor(): Executor {
         return object : Executor {
             private val handler = Handler(Looper.getMainLooper())
@@ -47,8 +50,7 @@ class AppModule(private val context: Context) {
     @Provides
     fun provideGson(): Gson {
         return GsonBuilder()
-            .setDateFormat("yyyy-MM-dd HH:mm:ss")
-            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .registerTypeAdapter(ZonedDateTime::class.java, ZoneDateTimeDeserializer())
             .setLenient()
             .create()
     }
@@ -76,13 +78,30 @@ class AppModule(private val context: Context) {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
-            .baseUrl("http://localhost:8080")
+            .baseUrl("http://10.0.2.2:8080/api/")
             .build()
     }
+
+    @Provides
+    fun provideSchedulerProvider(): SchedulerProvider {
+        return AppSchedulerProvider()
+    }
+
+    @Provides
+    fun provideUserApi(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
+
+    @Provides
+    fun provideEventApi(retrofit: Retrofit): EventApi = retrofit.create(EventApi::class.java)
 
     @Provides
     @Singleton
     fun provideUserRepository(userApi: UserApi, appDatabase: AppDatabase): UserRepository {
         return UserRepositoryImpl(userApi, appDatabase)
+    }
+
+    @Provides
+    @Singleton
+    fun provideEventRepository(eventApi: EventApi): EventRepository {
+        return EventRepositoryImpl(eventApi)
     }
 }

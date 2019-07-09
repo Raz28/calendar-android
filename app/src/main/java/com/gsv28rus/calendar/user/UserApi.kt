@@ -1,7 +1,7 @@
-package com.gsv28rus.calendar.api
+package com.gsv28rus.calendar.user
 
 import com.gsv28rus.calendar.common.ApiResponse
-import com.gsv28rus.calendar.model.User
+import com.gsv28rus.calendar.user.User
 import io.reactivex.Single
 import retrofit2.http.*
 

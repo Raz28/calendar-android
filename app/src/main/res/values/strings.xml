@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Calendar App</string>
+    <string name="no_events">No events</string>
+    <string name="week_index">%1$d week</string>
 </resources>

@@ -4,16 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
-            name="event"
-            type="com.gsv28rus.calendar.event.Event" />
+            name="eventDay"
+            type="com.gsv28rus.calendar.event.EventDay" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dateTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{eventDay.weekTitle}"
+            android:visibility="@{eventDay.beginningWeek ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="june 14 - 20, 2019"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/weekIndex"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="@{eventDay.beginningWeek ? View.VISIBLE : View.GONE}"
+            android:text="@{@string/week_index(eventDay.indexWeek)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Week 29" />
 
         <TextView
             android:id="@+id/dayOfMonth"
@@ -23,10 +48,10 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:minWidth="32dp"
-            android:text="@{event.dayOfMouth}"
+            android:text="@{eventDay.dayOfMouth}"
             android:textAppearance="@style/CalendarTheme.TextAppearance.Largest"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateTitle"
             tools:text="29" />
 
         <TextView
@@ -36,7 +61,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="@{event.dayOfWeek}"
+            android:text="@{eventDay.dayOfWeek}"
             android:textAppearance="@style/CalendarTheme.TextAppearance.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/dayOfMonth"
@@ -55,7 +80,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/dayOfMonth"
-            app:layout_constraintTop_toTopOf="@+id/dayOfMonth">
+            app:layout_constraintTop_toBottomOf="@+id/dateTitle"
+            tools:visibility="visible">
 
             <TextView
                 android:id="@+id/title"
@@ -64,7 +90,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{event.title}"
+                android:text="@{eventDay.withEvents ? eventDay.event.title : @string/no_events}"
                 android:textAppearance="@style/CalendarTheme.TextAppearance.Large"
                 app:layout_constraintBottom_toTopOf="@+id/time"
                 app:layout_constraintStart_toStartOf="parent"
@@ -77,12 +103,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{event.period}"
-                android:visibility="visible"
+                android:text="@{eventDay.event.period}"
+                android:visibility="@{eventDay.withEvents ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toTopOf="@+id/who"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title"
-                tools:text="13:00 - 14:00" />
+                tools:text="13:00 - 14:00"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/who"
@@ -90,12 +117,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{event.who}"
-                android:visibility="visible"
+                android:text="@{eventDay.event.who}"
+                android:visibility="@{eventDay.withEvents ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/time"
-                tools:text="Author" />
+                tools:text="Author"
+                tools:visibility="visible" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

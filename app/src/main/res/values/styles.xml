@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CalendarTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="CalendarTheme.NavigationView">
+        <item name="android:listDivider">@color/gray</item>
+    </style>
+
+    <style name="CalendarTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="CalendarTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+
+
 </resources>

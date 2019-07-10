@@ -1,7 +1,6 @@
 package com.gsv28rus.calendar.di
 
-import com.gsv28rus.calendar.event.EventListActivity
-import com.gsv28rus.calendar.MainActivity
+import com.gsv28rus.calendar.CalendarActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -9,8 +8,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityModule {
 
     @ContributesAndroidInjector
-    abstract fun contributeMainActivity(): MainActivity
-
-    @ContributesAndroidInjector
-    abstract fun contributeEventListActivity(): EventListActivity
+    abstract fun contributeMainActivity(): CalendarActivity
 }

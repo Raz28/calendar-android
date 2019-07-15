@@ -7,5 +7,13 @@
     <fragment
         android:id="@+id/eventListFragment"
         android:name="com.gsv28rus.calendar.event.EventListFragment"
-        android:label="EventListFragment" />
+        android:label="EventListFragment" >
+        <action
+            android:id="@+id/action_eventListFragment_to_editEventFragment"
+            app:destination="@id/editEventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editEventFragment"
+        android:name="com.gsv28rus.calendar.event.EditEventFragment"
+        android:label="EditEventFragment" />
 </navigation>

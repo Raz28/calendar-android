@@ -4,37 +4,41 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.RecyclerView
 import com.gsv28rus.calendar.R
 import com.gsv28rus.calendar.common.presentation.BaseFragment
-import com.gsv28rus.calendar.databinding.FragmentListBinding
+import kotlinx.android.synthetic.main.fragment_list.*
 
 class EventListFragment : BaseFragment() {
     private lateinit var eventViewModel: EventViewModel
     private lateinit var adapter: EventAdapter
-    private lateinit var binding: FragmentListBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list, container, false)
+        return inflater.inflate(R.layout.fragment_list, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setHasOptionsMenu(true)
         initList()
         initViewModel()
         initFab()
-        return binding.root
     }
 
     private fun initList() {
-        adapter = EventAdapter(listOf())
-        with(binding) {
-            list.setHasFixedSize(true)
-            list.layoutManager = LinearLayoutManager(activity)
-            list.adapter = adapter
-        }
+        adapter = EventAdapter(listOf(), listener = {
+            var bundle = bundleOf()
+            findNavController().navigate(R.id.action_eventListFragment_to_editEventFragment)
+        })
+        list.setHasFixedSize(true)
+        list.layoutManager = LinearLayoutManager(activity) as RecyclerView.LayoutManager?
+        list.adapter = adapter
     }
 
     private fun initViewModel() {
@@ -45,9 +49,8 @@ class EventListFragment : BaseFragment() {
     }
 
     private fun initFab() {
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        fab.setOnClickListener {
+            findNavController().navigate(R.id.action_eventListFragment_to_editEventFragment)
         }
     }
 }

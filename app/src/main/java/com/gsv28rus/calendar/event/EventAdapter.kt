@@ -8,20 +8,19 @@ import com.gsv28rus.calendar.R
 import com.gsv28rus.calendar.common.inflate
 import com.gsv28rus.calendar.databinding.EventItemBinding
 
-class EventAdapter(private var eventList: List<EventDay>) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
+class EventAdapter(private var eventList: List<EventDay>, private val listener: (EventDay) -> Unit) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(parent.inflate(R.layout.event_item))
     override fun getItemCount(): Int = eventList.size
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(eventList[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(eventList[position], listener)
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var binding: EventItemBinding
 
-        fun bind(item: EventDay) = with(itemView) {
+        fun bind(item: EventDay, listener: (EventDay) -> Unit) = with(itemView) {
             binding = DataBindingUtil.bind(itemView)!!
-            with(binding) {
-                eventDay = item
-            }
+            binding.eventDay = item
+            setOnClickListener { listener(item) }
         }
     }
 

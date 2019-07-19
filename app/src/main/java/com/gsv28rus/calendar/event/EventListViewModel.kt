@@ -11,7 +11,7 @@ import org.threeten.bp.ZoneId
 import timber.log.Timber
 import javax.inject.Inject
 
-class EventViewModel @Inject constructor(
+class EventListViewModel @Inject constructor(
         schedulerProvider: SchedulerProvider,
         private val eventRepository: EventRepository
 ) : BaseViewModel(schedulerProvider) {

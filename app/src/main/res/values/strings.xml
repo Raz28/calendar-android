@@ -3,6 +3,12 @@
     <string name="no_events">No events</string>
     <string name="week_index">%1$d week</string>
 
+    <string name="event_title">Title</string>
+    <string name="event_who">Who</string>
+    <string name="event_location">Location</string>
+    <string name="event_description">Description</string>
+    <string name="event_all_day">All-day</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="author_email">gsv28rus@gmail.com</string>
@@ -19,4 +25,10 @@
     <string name="menu_login">Login</string>
 
     <string name="save">Save</string>
+
+    <string name="repeat_not">Does not repeat</string>
+    <string name="repeat_daily">Repeats daily</string>
+    <string name="repeat_weekly">Repeats weekly</string>
+    <string name="repeat_monthly">Repeats monthly</string>
+    <string name="repeat_yearly">Repeats yearly</string>
 </resources>

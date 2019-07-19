@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--<data>-->
+    <data>
 
-        <!--<variable-->
-            <!--name="viewModel"-->
-            <!--type="com.gsv28rus.calendar.event.EventViewModel" />-->
+        <variable
+            name="viewModel"
+            type="com.gsv28rus.calendar.event.EventListViewModel" />
 
-        <!--<variable-->
-            <!--name="eventDay"-->
-            <!--type="com.gsv28rus.calendar.event.EventDay" />-->
-    <!--</data>-->
+        <variable
+            name="eventDay"
+            type="com.gsv28rus.calendar.event.EventDay" />
+    </data>
 
     <ScrollView
         android:id="@+id/profileScrollView"
@@ -25,51 +26,199 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/title"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_normal"
-                android:paddingStart="@dimen/spacing_tiny"
-                android:paddingEnd="@dimen/spacing_tiny"
-                tools:text="Test title" />
+                android:layout_marginEnd="@dimen/spacing_normal"
+                android:hint="@string/event_title">
 
-            <EditText
-                android:id="@+id/who"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_normal"
-                android:layout_marginTop="@dimen/spacing_normal"
-                android:paddingStart="@dimen/spacing_tiny"
-                android:paddingEnd="@dimen/spacing_tiny"
-                tools:text="Who test" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{eventDay.event.title}"
+                    tools:text="Test title" />
 
-            <EditText
-                android:id="@+id/where"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_normal"
-                android:layout_marginTop="@dimen/spacing_normal"
-                android:paddingStart="@dimen/spacing_tiny"
-                android:paddingEnd="@dimen/spacing_tiny"
-                tools:text="Location" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/description"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_normal"
-                android:paddingStart="@dimen/spacing_tiny"
-                android:paddingEnd="@dimen/spacing_tiny"
-                tools:text="Description" />
+                android:layout_marginEnd="@dimen/spacing_normal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/timeImage"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_time" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/allDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/event_all_day"
+                    app:layout_constraintBottom_toTopOf="@+id/startDate"
+                    app:layout_constraintStart_toEndOf="@+id/timeImage"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchCompat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/startTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/startDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{eventDay.event.getDayAndWeek(eventDay.event.startDate)}"
+                    app:layout_constraintBottom_toTopOf="@+id/endDate"
+                    app:layout_constraintStart_toStartOf="@+id/allDay"
+                    app:layout_constraintTop_toBottomOf="@+id/allDay"
+                    tools:text="Test" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/startTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{eventDay.event.getHoursAndMinutes(eventDay.event.startDate)}"
+                    app:layout_constraintBottom_toTopOf="@+id/endTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/switchCompat"
+                    app:layout_constraintTop_toBottomOf="@+id/switchCompat"
+                    tools:text="Test" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/endDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{eventDay.event.getDayAndWeek(eventDay.event.endDate)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/startDate"
+                    app:layout_constraintTop_toBottomOf="@+id/startDate"
+                    tools:text="Test" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/endTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{eventDay.event.getHoursAndMinutes(eventDay.event.endDate)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/switchCompat"
+                    app:layout_constraintTop_toBottomOf="@+id/startTime"
+                    tools:text="Test" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/repeatImage"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="@dimen/spacing_small"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:layout_marginBottom="@dimen/spacing_normal"
+                    app:srcCompat="@drawable/ic_repeat" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/repeat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_small"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:layout_marginBottom="@dimen/spacing_normal" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                android:hint="@string/event_who">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/who"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{eventDay.event.who}"
+                    tools:text="Test who" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                android:hint="@string/event_location">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{eventDay.event.location}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                android:hint="@string/event_description">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{eventDay.event.description}"
+                    tools:text="Test description" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/save"
-                android:text="@string/save"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:text="@string/save" />
 
         </LinearLayout>
 

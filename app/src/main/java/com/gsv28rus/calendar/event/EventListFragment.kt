@@ -15,7 +15,7 @@ import com.gsv28rus.calendar.common.presentation.BaseFragment
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class EventListFragment : BaseFragment() {
-    private lateinit var eventViewModel: EventViewModel
+    private lateinit var eventListViewModel: EventListViewModel
     private lateinit var adapter: EventAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,8 +33,8 @@ class EventListFragment : BaseFragment() {
 
     private fun initList() {
         adapter = EventAdapter(listOf(), listener = {
-            var bundle = bundleOf()
-            findNavController().navigate(R.id.action_eventListFragment_to_editEventFragment)
+            val bundle = bundleOf("eventDay" to it)
+            findNavController().navigate(R.id.action_eventListFragment_to_editEventFragment, bundle)
         })
         list.setHasFixedSize(true)
         list.layoutManager = LinearLayoutManager(activity) as RecyclerView.LayoutManager?
@@ -42,8 +42,8 @@ class EventListFragment : BaseFragment() {
     }
 
     private fun initViewModel() {
-        eventViewModel = ViewModelProviders.of(this, viewModelFactory).get(EventViewModel::class.java)
-        eventViewModel.getEventList().observe(this, Observer {
+        eventListViewModel = ViewModelProviders.of(this, viewModelFactory).get(EventListViewModel::class.java)
+        eventListViewModel.getEventList().observe(this, Observer {
             adapter.setEventList(it)
         })
     }

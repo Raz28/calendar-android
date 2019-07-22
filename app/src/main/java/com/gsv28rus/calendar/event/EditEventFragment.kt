@@ -1,10 +1,7 @@
 package com.gsv28rus.calendar.event
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
+import android.view.*
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -12,7 +9,6 @@ import com.gsv28rus.calendar.R
 import com.gsv28rus.calendar.common.DatePickerType
 import com.gsv28rus.calendar.common.presentation.BaseFragment
 import com.gsv28rus.calendar.databinding.FragmentEventEditBinding
-import kotlinx.android.synthetic.main.app_bar_main.*
 
 class EditEventFragment : BaseFragment() {
     private lateinit var binding: FragmentEventEditBinding
@@ -36,6 +32,20 @@ class EditEventFragment : BaseFragment() {
         initSpinner()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.event_edit_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_save -> {
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun initViewModel() {
         eventListViewModel = ViewModelProviders.of(this, viewModelFactory).get(EventListViewModel::class.java)
         binding.viewModel = eventListViewModel
@@ -43,7 +53,6 @@ class EditEventFragment : BaseFragment() {
 
     private fun initToolbar() {
         setHasOptionsMenu(true)
-        activity?.toolbar?.setNavigationOnClickListener { activity?.onBackPressed() }
     }
 
     private fun initSpinner() {

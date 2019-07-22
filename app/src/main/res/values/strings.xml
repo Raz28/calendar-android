@@ -3,17 +3,20 @@
     <string name="no_events">No events</string>
     <string name="week_index">%1$d week</string>
 
+    <string name="event_list">My events</string>
+    <string name="edit_event">Edit event</string>
+
     <string name="event_title">Title</string>
     <string name="event_who">Who</string>
     <string name="event_location">Location</string>
     <string name="event_description">Description</string>
     <string name="event_all_day">All-day</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="author_email">gsv28rus@gmail.com</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_go_today">Today</string>
+    <string name="action_accept">Accept</string>
 
     <string name="menu_list">List</string>
     <string name="menu_day">Day</string>

@@ -1,15 +1,12 @@
 package com.gsv28rus.calendar.event
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.ui.onNavDestinationSelected
 import com.gsv28rus.calendar.R
 import com.gsv28rus.calendar.common.presentation.BaseFragment
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -31,14 +28,24 @@ class EventListFragment : BaseFragment() {
         initFab()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.event_list_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_go_today -> true
+            else -> item.onNavDestinationSelected(findNavController()) || super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun initList() {
         adapter = EventAdapter(listOf(), listener = {
-            val bundle = bundleOf("eventDay" to it)
-            findNavController().navigate(R.id.action_eventListFragment_to_editEventFragment, bundle)
+            findNavController().navigate(R.id.action_eventListFragment_to_editEventFragment,  bundleOf("eventDay" to it))
         })
-        list.setHasFixedSize(true)
-        list.layoutManager = LinearLayoutManager(activity) as RecyclerView.LayoutManager?
         list.adapter = adapter
+        list.setHasFixedSize(true)
     }
 
     private fun initViewModel() {

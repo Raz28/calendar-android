@@ -7,20 +7,24 @@
     <fragment
         android:id="@+id/eventListFragment"
         android:name="com.gsv28rus.calendar.event.EventListFragment"
-        android:label="EventListFragment">
+        android:label="@string/event_list">
         <action
             android:id="@+id/action_eventListFragment_to_editEventFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
             app:destination="@id/editEventFragment" />
     </fragment>
     <fragment
         android:id="@+id/editEventFragment"
         android:name="com.gsv28rus.calendar.event.EditEventFragment"
-        android:label="EditEventFragment">
+        android:label="@string/edit_event">
         <argument
             android:name="eventDay"
             app:argType="com.gsv28rus.calendar.event.EventDay" />
         <action
             android:id="@+id/action_editEventFragment_to_datePickerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
             app:destination="@id/datePickerFragment" />
     </fragment>
     <dialog

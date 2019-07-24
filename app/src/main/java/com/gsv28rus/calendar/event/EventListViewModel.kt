@@ -15,7 +15,6 @@ class EventListViewModel @Inject constructor(
         schedulerProvider: SchedulerProvider,
         private val eventRepository: EventRepository
 ) : BaseViewModel(schedulerProvider) {
-
     private var eventList: MutableLiveData<List<EventDay>>? = null
 
     fun getEventList(): LiveData<List<EventDay>> {

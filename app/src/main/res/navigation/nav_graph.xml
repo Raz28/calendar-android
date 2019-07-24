@@ -10,9 +10,9 @@
         android:label="@string/event_list">
         <action
             android:id="@+id/action_eventListFragment_to_editEventFragment"
+            app:destination="@id/editEventFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:destination="@id/editEventFragment" />
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/editEventFragment"
@@ -23,14 +23,23 @@
             app:argType="com.gsv28rus.calendar.event.EventDay" />
         <action
             android:id="@+id/action_editEventFragment_to_datePickerFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
             app:destination="@id/datePickerFragment" />
+        <action
+            android:id="@+id/action_editEventFragment_to_timePickerFragment"
+            app:destination="@id/timePickerFragment" />
     </fragment>
     <dialog
         android:id="@+id/datePickerFragment"
         android:name="com.gsv28rus.calendar.common.DatePickerFragment"
-        android:label="DatePickerFragment" >
+        android:label="DatePickerFragment">
+        <argument
+            android:name="dateType"
+            app:argType="com.gsv28rus.calendar.common.DatePickerType" />
+    </dialog>
+    <dialog
+        android:id="@+id/timePickerFragment"
+        android:name="com.gsv28rus.calendar.common.TimePickerFragment"
+        android:label="TimePickerFragment">
         <argument
             android:name="dateType"
             app:argType="com.gsv28rus.calendar.common.DatePickerType" />

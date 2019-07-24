@@ -3,6 +3,7 @@ package com.gsv28rus.calendar.common
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.view.View
 import android.widget.TimePicker
 import androidx.lifecycle.ViewModelProviders
 import com.gsv28rus.calendar.common.presentation.ViewModelFactory
@@ -20,13 +21,15 @@ class TimePickerFragment : DaggerDialogFragment(), TimePickerDialog.OnTimeSetLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        editEventViewModel = ViewModelProviders.of(this, viewModelFactory).get(EditEventViewModel::class.java)
+        editEventViewModel = activity?.run {
+            ViewModelProviders.of(this, viewModelFactory).get(EditEventViewModel::class.java)
+        }!!
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         when (arguments?.get("dateType")) {
-            DatePickerType.START_DATE -> updateTime(editEventViewModel.eventDay.value?.event?.startDate, hourOfDay, minute)
-            DatePickerType.END_DATE -> updateTime(editEventViewModel.eventDay.value?.event?.endDate, hourOfDay, minute)
+            DatePickerType.START_DATE -> editEventViewModel.setStartDateEvent(updateTime(editEventViewModel.eventDay.value?.event?.startDate, hourOfDay, minute))
+            DatePickerType.END_DATE -> editEventViewModel.setEndDateEvent(updateTime(editEventViewModel.eventDay.value?.event?.endDate, hourOfDay, minute))
         }
     }
 

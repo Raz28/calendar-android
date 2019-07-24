@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.gsv28rus.calendar.event.EventListViewModel" />
+            type="com.gsv28rus.calendar.event.EditEventViewModel" />
 
         <variable
             name="eventDay"
@@ -43,6 +43,13 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/gray_line"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,6 +74,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/event_all_day"
+                    android:textAppearance="@style/CalendarTheme.TextAppearance.Large"
                     app:layout_constraintBottom_toTopOf="@+id/startDate"
                     app:layout_constraintStart_toEndOf="@+id/timeImage"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -87,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@{eventDay.event.getDayAndWeek(eventDay.event.startDate)}"
+                    android:textAppearance="@style/CalendarTheme.TextAppearance.Large"
                     app:layout_constraintBottom_toTopOf="@+id/endDate"
                     app:layout_constraintStart_toStartOf="@+id/allDay"
                     app:layout_constraintTop_toBottomOf="@+id/allDay"
@@ -100,6 +109,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="@{eventDay.event.getHoursAndMinutes(eventDay.event.startDate)}"
+                    android:textAppearance="@style/CalendarTheme.TextAppearance.Large"
                     app:layout_constraintBottom_toTopOf="@+id/endTime"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/switchCompat"
@@ -113,6 +123,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="@{eventDay.event.getDayAndWeek(eventDay.event.endDate)}"
+                    android:textAppearance="@style/CalendarTheme.TextAppearance.Large"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/startDate"
                     app:layout_constraintTop_toBottomOf="@+id/startDate"
@@ -127,6 +138,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="@{eventDay.event.getHoursAndMinutes(eventDay.event.endDate)}"
+                    android:textAppearance="@style/CalendarTheme.TextAppearance.Large"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/switchCompat"
@@ -134,6 +146,13 @@
                     tools:text="Test" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/gray_line"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -162,6 +181,13 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/gray_line"
+                android:layout_marginTop="@dimen/spacing_tiny"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -179,6 +205,13 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/gray_line"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -195,6 +228,12 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/gray_line"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -212,14 +251,6 @@
                     tools:text="Test description" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <Button
-                android:id="@+id/save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_normal"
-                android:text="@string/save" />
-
         </LinearLayout>
 
     </ScrollView>

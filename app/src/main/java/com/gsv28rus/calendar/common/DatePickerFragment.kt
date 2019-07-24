@@ -19,15 +19,15 @@ class DatePickerFragment : DaggerDialogFragment(), DatePickerDialog.OnDateSetLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        editEventViewModel = ViewModelProviders.of(this, viewModelFactory).get(EditEventViewModel::class.java)
+        editEventViewModel = activity?.run {
+            ViewModelProviders.of(this, viewModelFactory).get(EditEventViewModel::class.java)
+        }!!
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         when (arguments?.get("dateType")) {
-            DatePickerType.START_DATE -> editEventViewModel.eventDay.value?.event?.startDate =
-                updateDate(editEventViewModel.eventDay.value?.event?.startDate, year, month, dayOfMonth)
-            DatePickerType.END_DATE -> editEventViewModel.eventDay.value?.event?.endDate =
-                updateDate(editEventViewModel.eventDay.value?.event?.endDate, year, month, dayOfMonth)
+            DatePickerType.START_DATE -> editEventViewModel.setStartDateEvent(updateDate(editEventViewModel.eventDay.value?.event?.startDate, year, month, dayOfMonth))
+            DatePickerType.END_DATE -> editEventViewModel.setEndDateEvent(updateDate(editEventViewModel.eventDay.value?.event?.endDate, year, month, dayOfMonth))
         }
     }
 

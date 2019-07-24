@@ -43,5 +43,5 @@ fun Completable.mainThreadSubscribe(schedulerProvider: SchedulerProvider): Compl
 
 
 fun ZonedDateTime.parseToHoursAndMinutes(): String {
-    return "${this.hour}:${this.minute}"
+    return "${"%02d".format(this.hour)}:${"%02d".format(this.minute)}"
 }

@@ -13,4 +13,8 @@ class EventRepositoryImpl
     override fun getMockEvents(): Single<List<Event>> {
         return eventApi.getMock()
     }
+
+    fun getEventById(eventId: String): Single<Event> {
+        return eventApi.getEvent(eventId)
+    }
 }

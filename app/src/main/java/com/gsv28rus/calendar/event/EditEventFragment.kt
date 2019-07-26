@@ -45,16 +45,10 @@ class EditEventFragment : BaseFragment() {
         editEventViewModel = activity?.run {
             ViewModelProviders.of(this, viewModelFactory).get(EditEventViewModel::class.java)
         }!!
+        editEventViewModel.initEventDay(arguments?.getParcelable("eventDay"))
         binding.viewModel = editEventViewModel
-
-        val eventDayArguments: EventDay = arguments?.getParcelable("eventDay")!!
-        val eventDay = eventDayArguments.copy()
-        if (eventDay.event == null) {
-            eventDay.event = Event(null, null, null, null, null, eventDay.startDay, eventDay.startDay, null, Repeat.NOT_REPEAT)
-        }
-        editEventViewModel.eventDay.value = eventDay
-        editEventViewModel.eventDay.observe(this, Observer {
-            binding.eventDay = eventDay
+        editEventViewModel.eventDay?.observe(this, Observer {
+            binding.eventDay = it
         })
     }
 

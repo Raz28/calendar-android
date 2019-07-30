@@ -8,8 +8,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.gsv28rus.calendar.common.presentation.ViewModelFactory
 import com.gsv28rus.calendar.event.EditEventViewModel
 import dagger.android.support.DaggerDialogFragment
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
 import java.util.*
 import javax.inject.Inject
 
@@ -26,8 +24,8 @@ class DatePickerFragment : DaggerDialogFragment(), DatePickerDialog.OnDateSetLis
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         when (arguments?.get("dateType")) {
-            DatePickerType.START_DATE -> editEventViewModel.setStartDateEvent(updateDate(editEventViewModel.eventDay.value?.event?.startDate, year, month, dayOfMonth))
-            DatePickerType.END_DATE -> editEventViewModel.setEndDateEvent(updateDate(editEventViewModel.eventDay.value?.event?.endDate, year, month, dayOfMonth))
+            DatePickerType.START_DATE -> editEventViewModel.updateStartDateEvent(year, month, dayOfMonth)
+            DatePickerType.END_DATE -> editEventViewModel.updateEndDateEvent(year, month, dayOfMonth)
         }
     }
 
@@ -38,12 +36,5 @@ class DatePickerFragment : DaggerDialogFragment(), DatePickerDialog.OnDateSetLis
         val day = c.get(Calendar.DAY_OF_MONTH)
 
         return DatePickerDialog(context, this, year, month, day)
-    }
-
-    private fun updateDate(zonedDateTime: ZonedDateTime?, year: Int, month: Int, dayOfMonth: Int): ZonedDateTime {
-        if (zonedDateTime == null) {
-            return ZonedDateTime.of(year, month, dayOfMonth, 12, 0, 0, 0, ZoneId.systemDefault())
-        }
-        return ZonedDateTime.of(year, month, dayOfMonth, zonedDateTime.hour, zonedDateTime.minute, zonedDateTime.second, zonedDateTime.nano, zonedDateTime.zone)
     }
 }

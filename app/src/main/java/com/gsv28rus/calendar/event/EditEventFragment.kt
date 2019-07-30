@@ -17,7 +17,6 @@ class EditEventFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentEventEditBinding.inflate(inflater, container, false)
-
         setHasOptionsMenu(true)
         initDataBinding()
         initUi()
@@ -47,7 +46,7 @@ class EditEventFragment : BaseFragment() {
         }!!
         editEventViewModel.initEventDay(arguments?.getParcelable("eventDay"))
         binding.viewModel = editEventViewModel
-        editEventViewModel.eventDay?.observe(this, Observer {
+        editEventViewModel.eventDay.observe(this, Observer {
             binding.eventDay = it
         })
     }

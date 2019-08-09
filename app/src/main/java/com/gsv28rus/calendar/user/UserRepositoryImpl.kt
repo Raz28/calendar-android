@@ -10,20 +10,8 @@ class UserRepositoryImpl @Inject constructor(
     private val appDatabase: AppDatabase
 ) : UserRepository {
 
-    override fun signUp(phone: String, password: String, passwordConfirmation: String): Completable {
-        return userApi.signUp(phone, password, passwordConfirmation).toCompletable()
-    }
-
-    override fun signIn(phone: String, password: String): Completable {
-        return userApi.signIn(phone, password).toCompletable()
-    }
-
-    override fun signOut(): Completable {
-        return userApi.signOut().toCompletable()
-    }
-
-    override fun getUser(): Single<User> {
-        return userApi.getUser().map { it.data }
+    override fun getUser(id : String): User? {
+        return appDatabase.userDao().getById(id)
     }
 
     override fun insertUser(user: User) {

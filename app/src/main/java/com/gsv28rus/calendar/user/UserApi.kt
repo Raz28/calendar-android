@@ -1,7 +1,5 @@
 package com.gsv28rus.calendar.user
 
-import com.gsv28rus.calendar.common.ApiResponse
-import com.gsv28rus.calendar.user.User
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -12,16 +10,16 @@ interface UserApi {
         @Query("phone") phone: String,
         @Query("password") password: String,
         @Query("password_confirmation") confirmPassword: String
-    ): Single<ApiResponse<String>>
+    ): Single<String>
 
     @POST("/api/auth/login")
     fun signIn(
         @Query("phone") phone: String,
         @Query("password") password: String
-    ): Single<ApiResponse<String>>
+    ): Single<String>
 
     @POST("/api/auth/logout")
-    fun signOut(): Single<ApiResponse<String>>
+    fun signOut(): Single<String>
 
     @PATCH("/api/user")
     @Headers("Content-Type: application/x-www-form-urlencoded")
@@ -30,8 +28,8 @@ interface UserApi {
         @Query("lastname") lastname: String?,
         @Query("surname") surname: String?,
         @Query("email") email: String?
-    ): Single<ApiResponse<User>>
+    ): Single<User>
 
     @GET("api/user")
-    fun getUser(): Single<ApiResponse<User>>
+    fun getUser(): Single<User>
 }

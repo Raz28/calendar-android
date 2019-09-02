@@ -8,5 +8,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityModule {
 
     @ContributesAndroidInjector
-    abstract fun contributeMainActivity(): CalendarActivity
+    abstract fun contributeCalendarActivity(): CalendarActivity
 }

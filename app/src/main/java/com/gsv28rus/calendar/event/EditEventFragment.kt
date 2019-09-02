@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.gsv28rus.calendar.R
+import com.gsv28rus.calendar.common.DATE_TYPE
 import com.gsv28rus.calendar.common.DatePickerType
 import com.gsv28rus.calendar.common.presentation.BaseFragment
 import com.gsv28rus.calendar.databinding.FragmentEventEditBinding
@@ -32,7 +33,7 @@ class EditEventFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_save -> {
-                val bundle = bundleOf("dateType" to DatePickerType.START_DATE)
+                val bundle = bundleOf(DATE_TYPE to DatePickerType.START_DATE)
                 findNavController().navigate(R.id.action_editEventFragment_to_datePickerFragment, bundle)
                 return true
             }
@@ -53,9 +54,9 @@ class EditEventFragment : BaseFragment() {
 
     private fun initUi() {
         binding.repeat.adapter = RepeatSpinnerAdapter(context)
-        binding.startDate.setOnClickListener { findNavController().navigate(R.id.action_editEventFragment_to_datePickerFragment, bundleOf("dateType" to DatePickerType.START_DATE)) }
-        binding.endDate.setOnClickListener { findNavController().navigate(R.id.action_editEventFragment_to_datePickerFragment, bundleOf("dateType" to DatePickerType.END_DATE)) }
-        binding.startTime.setOnClickListener { findNavController().navigate(R.id.action_editEventFragment_to_timePickerFragment, bundleOf("dateType" to DatePickerType.START_DATE)) }
-        binding.endTime.setOnClickListener { findNavController().navigate(R.id.action_editEventFragment_to_timePickerFragment, bundleOf("dateType" to DatePickerType.END_DATE)) }
+        binding.startDate.setOnClickListener { findNavController().navigate(R.id.action_editEventFragment_to_datePickerFragment, bundleOf(DATE_TYPE to DatePickerType.START_DATE)) }
+        binding.endDate.setOnClickListener { findNavController().navigate(R.id.action_editEventFragment_to_datePickerFragment, bundleOf(DATE_TYPE to DatePickerType.END_DATE)) }
+        binding.startTime.setOnClickListener { findNavController().navigate(R.id.action_editEventFragment_to_timePickerFragment, bundleOf(DATE_TYPE to DatePickerType.START_DATE)) }
+        binding.endTime.setOnClickListener { findNavController().navigate(R.id.action_editEventFragment_to_timePickerFragment, bundleOf(DATE_TYPE to DatePickerType.END_DATE)) }
     }
 }

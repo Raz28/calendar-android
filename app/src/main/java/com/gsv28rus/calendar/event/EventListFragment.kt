@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import com.gsv28rus.calendar.R
+import com.gsv28rus.calendar.common.EVENT_DAY
 import com.gsv28rus.calendar.common.presentation.BaseFragment
 import kotlinx.android.synthetic.main.fragment_list.*
 
@@ -42,7 +43,7 @@ class EventListFragment : BaseFragment() {
 
     private fun initList() {
         adapter = EventAdapter(listOf(), listener = {
-            findNavController().navigate(R.id.action_eventListFragment_to_editEventFragment,  bundleOf("eventDay" to it))
+            findNavController().navigate(R.id.action_eventListFragment_to_editEventFragment,  bundleOf(EVENT_DAY to it))
         })
         list.adapter = adapter
         list.setHasFixedSize(true)

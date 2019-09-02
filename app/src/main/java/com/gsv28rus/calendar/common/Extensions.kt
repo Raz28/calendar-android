@@ -12,12 +12,6 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import org.threeten.bp.ZonedDateTime
 
-inline fun FragmentManager.executeTransaction(func: FragmentTransaction.() -> Unit) {
-    val fragmentTransaction = beginTransaction()
-    fragmentTransaction.func()
-    fragmentTransaction.commit()
-}
-
 fun ViewGroup.inflate(layoutRes: Int): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, false)
 }

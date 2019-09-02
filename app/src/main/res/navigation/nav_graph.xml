@@ -44,4 +44,8 @@
             android:name="dateType"
             app:argType="com.gsv28rus.calendar.common.DatePickerType" />
     </dialog>
+    <fragment
+        android:id="@+id/preloaderFragment"
+        android:name="com.gsv28rus.calendar.common.PreloaderFragment"
+        android:label="PreloaderFragment" />
 </navigation>

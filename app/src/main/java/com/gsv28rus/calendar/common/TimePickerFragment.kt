@@ -23,7 +23,7 @@ class TimePickerFragment : DaggerDialogFragment(), TimePickerDialog.OnTimeSetLis
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        when (arguments?.get("dateType")) {
+        when (arguments?.get(DATE_TYPE)) {
             DatePickerType.START_DATE -> editEventViewModel.updateStartTimeEvent(hourOfDay, minute)
             DatePickerType.END_DATE -> editEventViewModel.updateEndTimeEvent(hourOfDay, minute)
         }

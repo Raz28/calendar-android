@@ -69,6 +69,13 @@ class AppModule(private val context: Context) {
             .readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
+            .addInterceptor { chain ->
+                val requestBuilder = chain.request().newBuilder()
+                userRepository.get().getCurrentUser()?.firebaseIdToken.let {
+                    requestBuilder.addHeader("X-Firebase-Auth", it!!)
+                }
+                return@addInterceptor chain.proceed(requestBuilder.build())
+            }
             .build()
     }
 

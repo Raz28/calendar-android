@@ -28,7 +28,7 @@ class EventListViewModel @Inject constructor(
 
     private fun updateEventList() {
         addDisposable(
-                eventRepository.getMockEvents()
+                eventRepository.getAll()
                         .mainThreadSubscribe(schedulerProvider)
                         .map { events -> updateEventToAllDay(events) }
                         .subscribe({

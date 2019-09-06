@@ -1,5 +1,6 @@
 package com.gsv28rus.calendar.event
 
+import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -10,7 +11,7 @@ class EventRepositoryImpl
         return eventApi.getAll()
     }
 
-    fun getEventById(eventId: String): Single<Event> {
-        return eventApi.getEvent(eventId)
+    override fun saveEvent(event: Event): Completable {
+        return eventApi.saveEvent(event)
     }
 }

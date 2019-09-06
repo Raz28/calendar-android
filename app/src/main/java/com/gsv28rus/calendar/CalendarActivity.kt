@@ -3,7 +3,6 @@ package com.gsv28rus.calendar
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,13 +11,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.gsv28rus.calendar.common.presentation.ViewModelFactory
-import com.gsv28rus.calendar.common.RequestHandler
-import com.gsv28rus.calendar.user.SignInViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_calendar.*
 import javax.inject.Inject
 
-class CalendarActivity : DaggerAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, RequestHandler {
+class CalendarActivity : DaggerAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     @Inject protected lateinit var viewModelFactory: ViewModelFactory
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
@@ -34,8 +31,6 @@ class CalendarActivity : DaggerAppCompatActivity(), NavigationView.OnNavigationI
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.setNavigationItemSelectedListener(this)
-
-        initSignInViewModel()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -76,19 +71,5 @@ class CalendarActivity : DaggerAppCompatActivity(), NavigationView.OnNavigationI
 
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
-    }
-
-    override fun startRequest() {
-        navController.navigate(R.id.preloaderFragment)
-    }
-
-    override fun endRequest() {
-        navController.popBackStack()
-    }
-
-    private fun initSignInViewModel() {
-        val signInViewModel = ViewModelProviders.of(this, viewModelFactory).get(SignInViewModel::class.java)
-        signInViewModel.requestHandler = this
-        signInViewModel.signInAnonymously()
     }
 }

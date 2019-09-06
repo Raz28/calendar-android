@@ -1,19 +1,22 @@
 package com.gsv28rus.calendar.event
 
 import androidx.lifecycle.MutableLiveData
+import com.gsv28rus.calendar.common.RequestHandler
+import com.gsv28rus.calendar.common.mainThreadSubscribe
 import com.gsv28rus.calendar.common.presentation.BaseViewModel
 import com.gsv28rus.calendar.common.schedulers.SchedulerProvider
 import org.threeten.bp.LocalDate
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZonedDateTime
+import timber.log.Timber
 import javax.inject.Inject
 
 class EditEventViewModel @Inject constructor(
         schedulerProvider: SchedulerProvider,
         private val eventRepository: EventRepository
 ) : BaseViewModel(schedulerProvider) {
+    lateinit var requestHandler: RequestHandler
     var eventDay: MutableLiveData<EventDay> = MutableLiveData()
-    val allDay: MutableLiveData<Boolean> = MutableLiveData()
 
     fun initEventDay(eventDay: EventDay?) {
         val eventDayValue: EventDay = getNewInstanceEventDay(eventDay)
@@ -22,6 +25,20 @@ class EditEventViewModel @Inject constructor(
         }
 
         this.eventDay.value = eventDayValue
+    }
+
+    fun saveEvent() {
+        requestHandler.startRequest()
+        addDisposable(
+            eventRepository.saveEvent(eventDay.value?.event!!)
+                .mainThreadSubscribe(schedulerProvider)
+                .subscribe({
+                    requestHandler.endRequest()
+                }, {
+                    requestHandler.endRequest()
+                    Timber.e(it)
+                })
+        )
     }
 
     fun updateStartTimeEvent(hourOfDay: Int, minute: Int) {

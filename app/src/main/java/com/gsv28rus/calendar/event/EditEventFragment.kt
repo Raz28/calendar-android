@@ -9,10 +9,12 @@ import androidx.navigation.fragment.findNavController
 import com.gsv28rus.calendar.R
 import com.gsv28rus.calendar.common.DATE_TYPE
 import com.gsv28rus.calendar.common.DatePickerType
+import com.gsv28rus.calendar.common.EVENT_DAY
+import com.gsv28rus.calendar.common.RequestHandler
 import com.gsv28rus.calendar.common.presentation.BaseFragment
 import com.gsv28rus.calendar.databinding.FragmentEventEditBinding
 
-class EditEventFragment : BaseFragment() {
+class EditEventFragment : BaseFragment(), RequestHandler {
     private lateinit var binding: FragmentEventEditBinding
     private lateinit var editEventViewModel: EditEventViewModel
 
@@ -33,19 +35,27 @@ class EditEventFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_save -> {
-                val bundle = bundleOf(DATE_TYPE to DatePickerType.START_DATE)
-                findNavController().navigate(R.id.action_editEventFragment_to_datePickerFragment, bundle)
+                editEventViewModel.saveEvent()
                 return true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
+    override fun startRequest() {
+        findNavController().navigate(R.id.preloaderFragment)
+    }
+
+    override fun endRequest() {
+        findNavController().popBackStack()
+    }
+
     private fun initDataBinding() {
         editEventViewModel = activity?.run {
             ViewModelProviders.of(this, viewModelFactory).get(EditEventViewModel::class.java)
         }!!
-        editEventViewModel.initEventDay(arguments?.getParcelable("eventDay"))
+        editEventViewModel.initEventDay(arguments?.getParcelable(EVENT_DAY))
+        editEventViewModel.requestHandler = this
         binding.viewModel = editEventViewModel
         editEventViewModel.eventDay.observe(this, Observer {
             binding.eventDay = it

@@ -38,7 +38,7 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{eventDay.event.title}"
+                    android:text="@={eventDay.event.title}"
                     tools:text="Test title" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -200,7 +200,7 @@
                     android:id="@+id/who"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{eventDay.event.who}"
+                    android:text="@={eventDay.event.who}"
                     tools:text="Test who" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -224,7 +224,7 @@
                     android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{eventDay.event.location}" />
+                    android:text="@={eventDay.event.location}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -247,7 +247,7 @@
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{eventDay.event.description}"
+                    android:text="@={eventDay.event.description}"
                     tools:text="Test description" />
 
             </com.google.android.material.textfield.TextInputLayout>

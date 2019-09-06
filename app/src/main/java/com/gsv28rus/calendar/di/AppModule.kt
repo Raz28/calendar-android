@@ -16,6 +16,7 @@ import com.gsv28rus.calendar.user.UserApi
 import com.gsv28rus.calendar.user.UserRepository
 import com.gsv28rus.calendar.user.UserRepositoryImpl
 import com.gsv28rus.calendar.utils.ZoneDateTimeDeserializer
+import com.gsv28rus.calendar.utils.ZoneDateTimeSerializer
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
@@ -24,6 +25,7 @@ import org.threeten.bp.ZonedDateTime
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.HttpURLConnection
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -51,6 +53,7 @@ class AppModule(private val context: Context) {
     fun provideGson(): Gson {
         return GsonBuilder()
             .registerTypeAdapter(ZonedDateTime::class.java, ZoneDateTimeDeserializer())
+            .registerTypeAdapter(ZonedDateTime::class.java, ZoneDateTimeSerializer())
             .setLenient()
             .create()
     }
@@ -71,10 +74,20 @@ class AppModule(private val context: Context) {
             .writeTimeout(60, TimeUnit.SECONDS)
             .addInterceptor { chain ->
                 val requestBuilder = chain.request().newBuilder()
-                userRepository.get().getCurrentUser()?.firebaseIdToken.let {
-                    requestBuilder.addHeader("X-Firebase-Auth", it!!)
+                userRepository.get().getCurrentUser()?.firebaseIdToken?.let {
+                    requestBuilder.addHeader("X-Firebase-Auth", it)
                 }
-                return@addInterceptor chain.proceed(requestBuilder.build())
+                var response = chain.proceed(requestBuilder.build())
+                if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                    userRepository.get().refreshToken()
+                    Thread.sleep(2500) //TODO fix
+                    response = chain.proceed(chain.request()
+                        .newBuilder()
+                        .addHeader("X-Firebase-Auth", userRepository.get().getCurrentUser()?.firebaseIdToken!!)
+                        .build())
+                }
+
+                return@addInterceptor response
             }
             .build()
     }

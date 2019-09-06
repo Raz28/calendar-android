@@ -13,8 +13,8 @@ interface EventApi {
     @GET("/api/events/{eventId}")
     fun getEvent(@Path("eventId") eventId: String): Single<Event>
 
-    @PUT("/api/events/update")
-    fun updateEvent(@Body event: Event?): Completable
+    @PUT("/api/events")
+    fun saveEvent(@Body event: Event): Completable
 
     @GET("/api/events//delete/{eventId}")
     fun deleteEvent(@Path("eventId") eventId: String): Completable
